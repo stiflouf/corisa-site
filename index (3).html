@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corisa — Ce que ton corps sait déjà.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --creme:#FAF6EE;--camel:#C9A84C;--camel-light:#E8D5A0;
+  --camel-soft:#EAD8B0;--brun:#1A0A00;--brun-mid:#5A3A10;
+  --brun-light:#8A6030;--flamme:#E8913A;
+  --hard:#2D6A2D;--easy:#8A6800;--rest:#C04A30;
+  --mental:#3A5A8A;--indoor:#6A3A8A;--deco:#5A5A5A;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--creme);color:var(--brun);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(250,246,238,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.12)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;letter-spacing:0.2em;color:var(--camel);text-decoration:none}
+.nav-btn{padding:0.55rem 1.2rem;font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--creme);background:var(--camel);border:none;border-radius:2px;cursor:pointer;text-decoration:none;transition:background 0.2s}
+.nav-btn:hover{background:var(--brun-mid)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 5rem;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 15% 25%,rgba(201,168,76,0.1) 0%,transparent 60%),radial-gradient(ellipse 55% 45% at 85% 75%,rgba(232,145,58,0.07) 0%,transparent 60%);pointer-events:none}
+.logo-wrap{margin-bottom:2rem;animation:hb 4s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.eyebrow{font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--camel);margin-bottom:1.4rem}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.06;margin-bottom:1rem;max-width:820px}
+.hero-h1 em{font-style:italic;color:var(--camel)}
+.hero-slogan{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--camel);margin-bottom:1.2rem;opacity:0.85}
+.hero-sub{font-size:1rem;color:var(--brun-light);max-width:540px;line-height:1.9;margin-bottom:0.8rem}
+.hero-sub strong{color:var(--brun);font-weight:500}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-bottom:2.5rem}
+.tag{font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.9rem;border:1px solid var(--camel-soft);border-radius:2px;color:var(--brun-mid);background:rgba(255,255,255,0.4)}
+.form-row{display:flex;max-width:460px;width:100%;border:1.5px solid var(--camel-soft);border-radius:2px;overflow:hidden;background:rgba(255,255,255,0.55);transition:border-color 0.2s}
+.form-row:focus-within{border-color:var(--camel)}
+.form-row input{flex:1;padding:0.9rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.86rem;color:var(--brun);background:transparent;border:none;outline:none}
+.form-row input::placeholder{color:var(--brun-light);opacity:0.45}
+.form-row button{padding:0.9rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--creme);background:var(--camel);border:none;cursor:pointer;white-space:nowrap;transition:background 0.2s}
+.form-row button:hover{background:var(--brun-mid)}
+.fnote{font-size:0.7rem;color:var(--brun-light);opacity:0.5;margin-top:0.7rem}
+.fsuccess{display:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--camel);padding:0.75rem 1.4rem;border:1px solid var(--camel-soft);border-radius:2px;max-width:460px;text-align:center}
+.ferror{display:none;font-size:0.75rem;color:var(--rest);margin-top:0.5rem;text-align:center}
+.divider{display:flex;align-items:center;gap:1rem;margin:3.5rem auto 0;max-width:260px;opacity:0.28}
+.dline{flex:1;height:1px;background:var(--camel)}
+.proof-strip{background:var(--brun);padding:1.4rem 2rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;align-items:center}
+.proof-item{display:flex;flex-direction:column;align-items:center;gap:0.2rem}
+.proof-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--camel);line-height:1}
+.proof-label{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,213,160,0.5)}
+.proof-sep{width:1px;height:2.5rem;background:rgba(201,168,76,0.2)}
+.section{padding:6rem 2rem;max-width:960px;margin:0 auto}
+.section-wide{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.s-eye{font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--camel);text-align:center;margin-bottom:0.5rem}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:300;text-align:center;margin-bottom:0.6rem;line-height:1.12}
+.s-title em{font-style:italic;color:var(--camel)}
+.s-why{font-size:0.75rem;font-style:italic;color:var(--camel);text-align:center;opacity:0.75;margin-bottom:0.9rem}
+.s-body{font-size:0.88rem;color:var(--brun-light);text-align:center;max-width:520px;margin:0 auto 3rem;line-height:1.9}
+.signal-card{background:white;border:1px solid var(--camel-soft);border-radius:12px;padding:2.5rem;max-width:600px;margin:0 auto 3rem;box-shadow:0 4px 32px rgba(90,58,16,0.06)}
+.signal-date{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--brun-light);margin-bottom:1.2rem}
+.signal-main{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.signal-badge{padding:0.6rem 1.2rem;border-radius:4px;font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgba(45,106,45,0.1);color:var(--hard);border:1px solid rgba(45,106,45,0.2)}
+.signal-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--brun);line-height:1.55;flex:1;min-width:200px}
+.signal-reasons{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.2rem}
+.reason{font-size:0.62rem;padding:0.3rem 0.7rem;border-radius:2px;background:rgba(201,168,76,0.1);color:var(--brun-mid);letter-spacing:0.08em}
+.signal-seance{padding:1rem 1.2rem;background:rgba(250,246,238,0.8);border-radius:4px;border-left:3px solid var(--camel)}
+.signal-seance-label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--camel);margin-bottom:0.3rem}
+.signal-seance-text{font-size:0.86rem;color:var(--brun);font-weight:500}
+.cal-wrap{background:white;border:1px solid var(--camel-soft);border-radius:8px;overflow:hidden;box-shadow:0 4px 40px rgba(90,58,16,0.07)}
+.cal-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--camel-soft);background:rgba(250,246,238,0.6);flex-wrap:wrap;gap:0.5rem}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;color:var(--brun)}
+.cal-sync{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--camel);opacity:0.7}
+.cal-days-hd{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--camel-soft)}
+.cal-dn{text-align:center;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--brun-light);padding:0.6rem 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-cell{border-right:0.5px solid rgba(201,168,76,0.12);border-bottom:0.5px solid rgba(201,168,76,0.12);padding:0.5rem 0.45rem;min-height:64px;position:relative;transition:background 0.15s}
+.cal-cell:hover{background:rgba(201,168,76,0.04)}
+.cal-cell.empty{background:rgba(250,246,238,0.5)}
+.cal-num{font-size:0.7rem;color:var(--brun-light);margin-bottom:0.25rem}
+.cal-cell.today .cal-num{color:var(--camel);font-weight:500}
+.sig{display:inline-block;font-size:0.48rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:2px 4px;border-radius:2px;margin-bottom:0.18rem}
+.s-hard{background:rgba(45,106,45,0.1);color:var(--hard)}
+.s-easy{background:rgba(201,168,76,0.15);color:var(--easy)}
+.s-rest{background:rgba(192,74,48,0.1);color:var(--rest)}
+.s-mental{background:rgba(58,90,138,0.1);color:var(--mental)}
+.s-indoor{background:rgba(106,58,138,0.1);color:var(--indoor)}
+.s-deco{background:rgba(90,90,90,0.1);color:var(--deco)}
+.cal-txt{font-size:0.52rem;color:var(--brun-light);line-height:1.4}
+.cal-moon{position:absolute;top:0.28rem;right:0.28rem;font-size:0.52rem;opacity:0.4}
+.legend{display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:1.4rem}
+.leg{display:flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--brun-mid)}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.synchro-section{background:var(--brun);padding:6rem 2rem}
+.synchro-inner{max-width:960px;margin:0 auto}
+.synchro-inner .s-eye{color:var(--camel);opacity:0.75}
+.synchro-inner .s-title{color:var(--camel-light)}
+.synchro-inner .s-why{color:rgba(232,213,160,0.55)}
+.synchro-inner .s-body{color:rgba(232,213,160,0.6)}
+.synchro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.15);margin-top:3rem}
+.synchro-item{background:rgba(26,10,0,0.95);padding:1.8rem 1.5rem}
+.synchro-icon{font-size:1.2rem;margin-bottom:0.7rem;opacity:0.8}
+.synchro-titre{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--camel);margin-bottom:0.35rem}
+.synchro-desc{font-size:0.75rem;color:rgba(232,213,160,0.5);line-height:1.75}
+.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--camel-soft);border:1px solid var(--camel-soft);margin-top:3rem}
+.data-item{background:var(--creme);padding:1.6rem 1.4rem}
+.data-source{font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);margin-bottom:0.4rem}
+.data-titre{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--brun);margin-bottom:0.3rem}
+.data-desc{font-size:0.75rem;color:var(--brun-light);line-height:1.7}
+.quote-wrap{padding:5rem 2rem;text-align:center;border-top:1px solid var(--camel-soft);border-bottom:1px solid var(--camel-soft)}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3.5vw,2.1rem);font-weight:300;font-style:italic;color:var(--brun);max-width:620px;margin:0 auto 1rem;line-height:1.55}
+.q-text em{color:var(--camel);font-style:normal}
+.q-attr{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);opacity:0.6}
+.nutri-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--camel-soft);border:1px solid var(--camel-soft);margin-top:3rem}
+.nutri-item{background:var(--creme);padding:1.6rem;transition:background 0.2s}
+.nutri-item:hover{background:rgba(232,208,144,0.18)}
+.nutri-saison{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--camel);margin-bottom:0.35rem}
+.nutri-titre{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--brun);margin-bottom:0.35rem}
+.nutri-desc{font-size:0.75rem;color:var(--brun-light);line-height:1.72}
+.nutri-special{font-size:0.66rem;color:var(--camel);margin-top:0.5rem;font-style:italic}
+.vs-wrap{max-width:780px;margin:0 auto;padding:5rem 2rem}
+.vs-table{width:100%;border-collapse:collapse;font-size:0.78rem;margin-top:2.5rem}
+.vs-table th{text-align:left;padding:0.6rem 0.9rem;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--brun-light);border-bottom:1.5px solid var(--camel);font-weight:500}
+.vs-table td{padding:0.58rem 0.9rem;border-bottom:0.5px solid var(--camel-soft);color:var(--brun-mid)}
+.vs-table tr:last-child td{font-weight:500;color:var(--camel);border-bottom:none}
+.vs-table td:first-child{font-weight:500;color:var(--brun)}
+.ck{color:var(--hard)}.cx{color:var(--rest);opacity:0.35}
+.fcta{padding:6rem 2rem;text-align:center;border-top:1px solid var(--camel-soft)}
+.fcta .form-row{margin:2rem auto 0}
+.fcta .fsuccess{margin:2rem auto 0}
+footer{padding:1.8rem 2rem;text-align:center;border-top:1px solid rgba(201,168,76,0.12)}
+footer p{font-size:0.62rem;color:var(--brun-light);opacity:0.4;letter-spacing:0.08em}
+
+
+@media(max-width:600px){
+  nav{padding:1rem 1.2rem}
+  .form-row{flex-direction:column}
+  .form-row button{width:100%}
+  .cal-txt{display:none}
+  .proof-sep{display:none}
+  .section,.section-wide{padding:4rem 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Corisa</a>
+  <a href="#beta" class="nav-btn">Accès bêta</a>
+</nav>
+
+<section class="hero">
+  <div class="logo-wrap">
+    <svg width="90" height="102" viewBox="0 0 180 200" fill="none">
+      <defs><path id="tp" d="M48 50 L132 50"/></defs>
+      <path d="M90 148 C90 148,28 106,28 64 C28 44,42 32,58 32 C70 32,80 40,90 50 C100 40,110 32,122 32 C138 32,152 44,152 64 C152 106,90 148,90 148Z" stroke="#C9A84C" stroke-width="4.5" fill="none" stroke-linejoin="round"/>
+      <line x1="48" y1="50" x2="132" y2="50" stroke="#C9A84C" stroke-width="4.5" stroke-linecap="round"/>
+      <text font-family="Georgia,serif" font-size="1.4" fill="#EDE5D0" opacity="1"><textPath href="#tp">scj</textPath></text>
+      <polyline points="44,92 54,92 60,74 68,112 75,82 82,92 87,84 92,92 108,92 120,92" stroke="#9A9080" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M90 50 C87 41,82 32,85 24 C85 24,78 31,81 41 C77 37,76 31,78 26 C78 26,71 34,75 44" fill="#E8913A"/>
+      <path d="M90 50 C93 41,98 32,95 24 C95 24,102 31,99 41 C103 37,104 31,102 26 C102 26,109 34,105 44" fill="#C9A84C" opacity="0.6"/>
+      <path d="M90 50 C89 43,87 36,89 30 C89 30,86 35,88 42" fill="#F5D060" opacity="0.85"/>
+    </svg>
+  </div>
+
+  <p class="eyebrow">Pour les athlètes qui veulent comprendre leur corps</p>
+  <h1 class="hero-h1">Ton corps. Tes cycles.<br>Ta nature. <em>Enfin visibles.</em></h1>
+  <p class="hero-slogan">Ce que ton corps sait déjà.</p>
+  <p class="hero-sub">Tu t'entraînes quand tu peux — à 5h du matin, le midi, le soir.<br><strong>Corisa te dit ce qui se passe en toi et autour de toi à ce moment-là</strong> — pour que chaque séance compte vraiment. Pas une prescription. Une conscience.</p>
+
+  <div class="hero-tags">
+    <span class="tag">Hyrox</span><span class="tag">Trail</span><span class="tag">Cyclisme</span>
+    <span class="tag">Running</span><span class="tag">Triathlon</span><span class="tag">Musculation</span>
+    <span class="tag">Strava</span><span class="tag">Garmin</span>
+  </div>
+
+  <div id="beta">
+    <div class="form-row" id="f1">
+      <input type="email" id="e1" placeholder="ton adresse email" autocomplete="email"/>
+      <button onclick="sub('f1','s1','er1','e1')">Accès bêta gratuit</button>
+    </div>
+    <div class="fsuccess" id="s1">✦ Bienvenue. Tu seras parmi les premiers.</div>
+    <div class="ferror" id="er1">Entre un email valide.</div>
+    <p class="fnote">Accès prioritaire · Aucun spam · Désabonnement en 1 clic</p>
+  </div>
+  <div class="divider"><div class="dline"></div><span style="color:var(--camel);font-size:0.65rem">✦</span><div class="dline"></div></div>
+</section>
+
+<div class="proof-strip">
+  <div class="proof-item"><div class="proof-num">10</div><div class="proof-label">Sources croisées chaque matin</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-num">13</div><div class="proof-label">Lunes de 28 jours / an</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-num">6</div><div class="proof-label">Types de signal quotidien</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-num">1</div><div class="proof-label">Signal clair chaque matin</div></div>
+</div>
+
+<section class="section">
+  <p class="s-eye reveal">Le signal quotidien</p>
+  <h2 class="s-title reveal">Chaque matin,<br><em>tu sais ce qui se passe</em></h2>
+  <p class="s-why reveal">Parce que connaître son état biologique change tout — même quand on n'a pas le choix de l'heure.</p>
+  <p class="s-body reveal">Corisa croise ton HRV, ta charge sportive, ta phase hormonale, la lune du jour, la qualité de l'air et la pression atmosphérique. Un signal clair, les raisons derrière, et une séance adaptée.</p>
+  <div class="signal-card reveal">
+    <div class="signal-date">Aujourd'hui · Lune croissante J+5 · Lyon · HRV +8% vs moyenne</div>
+    <div class="signal-main">
+      <div class="signal-badge">Hard Day</div>
+      <div class="signal-text">"Ton HRV est en hausse, la lune tire vers le haut, l'air est propre. Ce que tu fais là a de la valeur — profites-en à fond."</div>
+    </div>
+    <div class="signal-reasons">
+      <span class="reason">HRV +8% vs moy.</span>
+      <span class="reason">Lune croissante J+5</span>
+      <span class="reason">Pic testo 7h–9h</span>
+      <span class="reason">ATMO Lyon — bon</span>
+      <span class="reason">Pression stable</span>
+    </div>
+    <div class="signal-seance">
+      <div class="signal-seance-label">Séance suggérée selon ton plan Hyrox</div>
+      <div class="signal-seance-text">Force — Sled push 6×20m · Farmers carry · KB swings · 75 min</div>
+    </div>
+  </div>
+</section>
+
+<section class="section-wide">
+  <p class="s-eye reveal">Vue planning</p>
+  <h2 class="s-title reveal">Ton mois,<br><em>vu par Corisa</em></h2>
+  <p class="s-why reveal">Parce que le calendrier grégorien traite tous les jours pareil — ton corps, non.</p>
+  <p class="s-body reveal">Importe ton plan Hyrox, cycling ou marathon. Corisa repositionne chaque séance sur tes fenêtres biologiques optimales.</p>
+  <div class="cal-wrap reveal">
+    <div class="cal-header">
+      <span class="cal-month">Lune 11 — Juin 2025 · Plan Hyrox 12 semaines</span>
+      <span class="cal-sync">Strava · Garmin · HRV · Apple Health</span>
+    </div>
+    <div class="cal-days-hd">
+      <div class="cal-dn">Lun</div><div class="cal-dn">Mar</div><div class="cal-dn">Mer</div>
+      <div class="cal-dn">Jeu</div><div class="cal-dn">Ven</div><div class="cal-dn">Sam</div><div class="cal-dn">Dim</div>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div>
+      <div class="cal-cell"><div class="cal-num">1</div><div class="sig s-easy">Easy</div><div class="cal-txt">Vélo Z2 60'</div><div class="cal-moon">🌒</div></div>
+      <div class="cal-cell"><div class="cal-num">2</div><div class="sig s-rest">Rest</div><div class="cal-txt">Yoga Nidra</div></div>
+      <div class="cal-cell"><div class="cal-num">3</div><div class="sig s-hard">Hard</div><div class="cal-txt">Hyrox Force</div><div class="cal-moon">🌓</div></div>
+      <div class="cal-cell"><div class="cal-num">4</div><div class="sig s-hard">Hard</div><div class="cal-txt">Interval run</div></div>
+      <div class="cal-cell"><div class="cal-num">5</div><div class="sig s-easy">Easy</div><div class="cal-txt">Nata 45'</div></div>
+      <div class="cal-cell"><div class="cal-num">6</div><div class="sig s-hard">Hard</div><div class="cal-txt">Cycling FTP</div></div>
+      <div class="cal-cell"><div class="cal-num">7</div><div class="sig s-easy">Easy</div><div class="cal-txt">Marche 30'</div></div>
+      <div class="cal-cell"><div class="cal-num">8</div><div class="sig s-rest">Rest</div><div class="cal-txt">Récup active</div><div class="cal-moon">🌕</div></div>
+      <div class="cal-cell"><div class="cal-num">9</div><div class="sig s-mental">Mental</div><div class="cal-txt">Méditation</div></div>
+      <div class="cal-cell"><div class="cal-num">10</div><div class="sig s-indoor">Indoor</div><div class="cal-txt">Air dégradé</div></div>
+      <div class="cal-cell"><div class="cal-num">11</div><div class="sig s-hard">Hard</div><div class="cal-txt">Hyrox complet</div><div class="cal-moon">🌖</div></div>
+      <div class="cal-cell"><div class="cal-num">12</div><div class="sig s-hard">Hard</div><div class="cal-txt">Sled + KB</div></div>
+      <div class="cal-cell"><div class="cal-num">13</div><div class="sig s-easy">Easy</div><div class="cal-txt">Run long Z2</div></div>
+      <div class="cal-cell today"><div class="cal-num">14 ←</div><div class="sig s-hard">Hard</div><div class="cal-txt">Cycling intensité</div></div>
+      <div class="cal-cell"><div class="cal-num">15</div><div class="sig s-rest">Rest</div><div class="cal-txt">Nadi Shodhana</div><div class="cal-moon">🌗</div></div>
+      <div class="cal-cell"><div class="cal-num">16</div><div class="sig s-easy">Easy</div><div class="cal-txt">Mobilité</div></div>
+      <div class="cal-cell"><div class="cal-num">17</div><div class="sig s-hard">Hard</div><div class="cal-txt">Hyrox Cardio</div></div>
+      <div class="cal-cell"><div class="cal-num">18</div><div class="sig s-hard">Hard</div><div class="cal-txt">Cycling sprint</div><div class="cal-moon">🌑</div></div>
+      <div class="cal-cell"><div class="cal-num">19</div><div class="sig s-easy">Easy</div><div class="cal-txt">Yoga matin</div></div>
+      <div class="cal-cell"><div class="cal-num">20</div><div class="sig s-rest">Rest</div><div class="cal-txt">Repos complet</div></div>
+      <div class="cal-cell"><div class="cal-num">21</div><div class="sig s-hard">Hard</div><div class="cal-txt">Run 10k tempo</div><div class="cal-moon">🌒</div></div>
+      <div class="cal-cell"><div class="cal-num">22</div><div class="sig s-hard">Hard</div><div class="cal-txt">Hyrox Force</div></div>
+      <div class="cal-cell"><div class="cal-num">23</div><div class="sig s-easy">Easy</div><div class="cal-txt">Vélo récup</div></div>
+      <div class="cal-cell"><div class="cal-num">24</div><div class="sig s-deco">Déco</div><div class="cal-txt">24h sans écran</div><div class="cal-moon">🌓</div></div>
+      <div class="cal-cell"><div class="cal-num">25</div><div class="sig s-mental">Mental</div><div class="cal-txt">Journaling</div></div>
+      <div class="cal-cell"><div class="cal-num">26</div><div class="sig s-hard">Hard</div><div class="cal-txt">Run 15k</div></div>
+      <div class="cal-cell"><div class="cal-num">27</div><div class="sig s-easy">Easy</div><div class="cal-txt">Étirements</div></div>
+      <div class="cal-cell"><div class="cal-num">28</div><div class="sig s-rest">Rest</div><div class="cal-txt">Jour hors du temps ✦</div><div class="cal-moon">🌕</div></div>
+      <div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div>
+    </div>
+  </div>
+  <div class="legend reveal">
+    <div class="leg"><div class="leg-dot" style="background:var(--hard)"></div>Hard day</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--camel)"></div>Easy day</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--rest)"></div>Rest day</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--mental)"></div>Mental day</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--indoor)"></div>Indoor day</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--deco)"></div>Déconnexion</div>
+  </div>
+</section>
+
+<section class="section-wide">
+  <p class="s-eye reveal">Ce que Corisa lit pour toi</p>
+  <h2 class="s-title reveal">Tes données + les cycles naturels<br>= <em>une conscience nouvelle</em></h2>
+  <p class="s-why reveal">Parce que la nature émet une énergie libre et gratuite — Corisa t'aide à l'absorber.</p>
+  <div class="data-grid reveal">
+    <div class="data-item"><div class="data-source">Strava · Garmin · Apple Health</div><div class="data-titre">HRV & charge sportive</div><div class="data-desc">Ton vrai état du jour — pas celui que tu crois avoir.</div></div>
+    <div class="data-item"><div class="data-source">Chronobiologie</div><div class="data-titre">Cycle hormonal masculin</div><div class="data-desc">Pic de testostérone 7h–9h. Variations saisonnières. Luminothérapie oct–mars.</div></div>
+    <div class="data-item"><div class="data-source">Chronobiologie · Lune Rouge</div><div class="data-titre">Cycle féminin — 4 phases</div><div class="data-desc">Folliculaire → énergie. Ovulation → puissance. Lutéale → introspection. Menstruelle → ressourcement.</div></div>
+    <div class="data-item"><div class="data-source">Synchronomètre</div><div class="data-titre">13 lunes de 28 jours</div><div class="data-desc">Lune croissante = énergie. Pleine lune = récupération. Nouvelle lune = reset.</div></div>
+    <div class="data-item"><div class="data-source">API Atmo France</div><div class="data-titre">Qualité de l'air</div><div class="data-desc">PM2.5 en temps réel. Air dégradé = Indoor Day automatique.</div></div>
+    <div class="data-item"><div class="data-source">OpenMeteo</div><div class="data-titre">Pression atmosphérique</div><div class="data-desc">Dépression barométrique = énergie basse. Stabilité = performance optimale.</div></div>
+  </div>
+</section>
+
+<div class="synchro-section">
+  <div class="synchro-inner">
+    <p class="s-eye reveal">Le Synchronomètre</p>
+    <h2 class="s-title reveal">Avant le calendrier grégorien,<br><em>l'humanité vivait selon 13 lunes.</em></h2>
+    <p class="s-why reveal">Parce que sortir du cycle commercial où tous les jours sont identiques change tout.</p>
+    <p class="s-body reveal">13 lunes de 28 jours — point médian entre le cycle synodique (29,5j) et sidéral (27,3j). Ce rythme correspond au cycle menstruel féminin, aux biorythmes masculins et au rythme naturel de récupération sportive.</p>
+    <div class="synchro-grid reveal">
+      <div class="synchro-item"><div class="synchro-icon">🌕</div><div class="synchro-titre">13 lunes parfaites</div><div class="synchro-desc">364 jours + 1 Jour Hors du Temps. Chaque lune dure exactement 28 jours — un rythme régulier, prévisible.</div></div>
+      <div class="synchro-item"><div class="synchro-icon">⚡</div><div class="synchro-titre">Croissante = énergie montante</div><div class="synchro-desc">Du premier quartier à la pleine lune, l'énergie naturelle monte. Fenêtre idéale pour les séances intenses.</div></div>
+      <div class="synchro-item"><div class="synchro-icon">🌑</div><div class="synchro-titre">Pleine lune = récupération</div><div class="synchro-desc">Énergie nerveuse amplifiée, sommeil perturbé. Récupérer, méditer, faire le point. Pas une contrainte — une information.</div></div>
+      <div class="synchro-item"><div class="synchro-icon">✂️</div><div class="synchro-titre">Biodynamie du quotidien</div><div class="synchro-desc">Couper les cheveux en lune croissante = repousse plus lente. Planter selon la lune. Cueillir les plantes sauvages au bon moment.</div></div>
+      <div class="synchro-item"><div class="synchro-icon">✦</div><div class="synchro-titre">Le Jour Hors du Temps</div><div class="synchro-desc">Le 365ème jour n'appartient à aucune lune. Déconnexion totale. L'app qui te dit de poser l'app.</div></div>
+      <div class="synchro-item"><div class="synchro-icon">🔄</div><div class="synchro-titre">Tout synchronisé</div><div class="synchro-desc">Le Synchronomètre est la matrice. Corisa lit tous ces cycles simultanément. Ton corps + la nature = alignés.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="quote-wrap">
+  <p class="q-text">"L'important c'est de faire <em>UN</em> entraînement.<br>Même pas optimal. Même 20 minutes.<br>Ne rien faire est toujours pire que faire moins."</p>
+  <p class="q-attr">— L'intention derrière Corisa</p>
+</div>
+
+<section class="section-wide">
+  <p class="s-eye reveal">Nutrition vivante</p>
+  <h2 class="s-title reveal">Mange ce que<br><em>la saison te donne</em></h2>
+  <p class="s-why reveal">Parce que les athlètes découvrent les bienfaits de la nutrition bien avant les médecins.</p>
+  <p class="s-body reveal">Pas de macros à compter. Les aliments comme carburant naturel, synchronisés avec tes cycles et la saison locale.</p>
+  <div class="nutri-grid reveal">
+    <div class="nutri-item"><div class="nutri-saison">Janvier — Mars</div><div class="nutri-titre">Reconstruction hivernale</div><div class="nutri-desc">Orties (fer, vitamine C, magnésium), mâche, poireaux, kiwi.</div><div class="nutri-special">✦ Ortie — gratuite, puissante, disponible partout</div></div>
+    <div class="nutri-item"><div class="nutri-saison">Avril — Mai</div><div class="nutri-titre">Réveil printanier</div><div class="nutri-desc">Asperges, radis, pissenlit, feuilles de noisetier. Détox, folates, zinc.</div><div class="nutri-special">✦ Pissenlit — tonique naturel dans chaque jardin</div></div>
+    <div class="nutri-item"><div class="nutri-saison">Juin — Juillet</div><div class="nutri-titre">Énergie maximale</div><div class="nutri-desc">Melon, fraises, fleurs de sureau, bourrache. Hydratation, antioxydants, magnésium.</div><div class="nutri-special">✦ Fleur de sureau — énergie digestive et soin</div></div>
+    <div class="nutri-item"><div class="nutri-saison">Août — Septembre</div><div class="nutri-titre">Transition automnale</div><div class="nutri-desc">Tomates, mûres sauvages, capucines. Lycopène, vitamine C, omégas.</div><div class="nutri-special">✦ Mûre sauvage — antioxydant puissant et gratuit</div></div>
+    <div class="nutri-item"><div class="nutri-saison">Octobre — Novembre</div><div class="nutri-titre">Force automnale</div><div class="nutri-desc">Châtaignes, potimarron, noix, betterave. Zinc, B6, magnésium.</div><div class="nutri-special">✦ Châtaigne — carburant idéal avant séance intense</div></div>
+    <div class="nutri-item"><div class="nutri-saison">Décembre</div><div class="nutri-titre">Récupération profonde</div><div class="nutri-desc">Kale, courges, agrumes, infusion noisetier. Vitamine C, fer. Luminothérapie.</div><div class="nutri-special">✦ Agrumes — vitamine C naturelle contre l'hiver sportif</div></div>
+  </div>
+</section>
+
+<div class="vs-wrap">
+  <p class="s-eye reveal" style="text-align:center">Comparaison</p>
+  <h2 class="s-title reveal" style="text-align:center">Ce que les autres<br><em>ne voient pas encore</em></h2>
+  <p class="s-why reveal" style="text-align:center">Parce que chaque app ne voit qu'une partie de toi — Corisa voit tout.</p>
+  <table class="vs-table reveal">
+    <thead><tr><th>App</th><th>Sport</th><th>Hormones</th><th>Lune</th><th>Nutrition</th><th>Air</th></tr></thead>
+    <tbody>
+      <tr><td>Strava / Garmin</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>Fitatu / MFP</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td><td class="ck">✓</td><td class="cx">✗</td></tr>
+      <tr><td>Clue / Natural Cycles</td><td class="cx">✗</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>Moonly</td><td class="cx">✗</td><td class="cx">✗</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>HRV4Training</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>Corisa</td><td class="ck">✓</td><td class="ck">✓</td><td class="ck">✓</td><td class="ck">✓</td><td class="ck">✓</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="fcta">
+  <p class="s-eye reveal">Bêta en préparation</p>
+  <h2 class="s-title reveal">Sois parmi<br>les <em>premiers</em></h2>
+  <p class="s-why reveal">Parce que les premiers utilisateurs construiront l'app avec nous.</p>
+  <p class="s-body reveal">Corisa n'existe pas encore dans ton téléphone. Mais elle arrive. Laisse ton email — accès gratuit à la bêta.</p>
+  <div class="form-row reveal" id="f2" style="margin:2rem auto 0">
+    <input type="email" id="e2" placeholder="ton adresse email" autocomplete="email"/>
+    <button onclick="sub('f2','s2','er2','e2')">Je veux la bêta</button>
+  </div>
+  <div class="fsuccess" id="s2" style="margin:2rem auto 0">✦ Bienvenue dans le cercle. À très vite.</div>
+  <div class="ferror" id="er2">Entre un email valide.</div>
+  <p class="fnote" style="margin-top:0.7rem">Aucun spam · Désabonnement en un clic</p>
+</section>
+
+<footer>
+  <p>© 2025 Corisa &nbsp;✦&nbsp; Ce que ton corps sait déjà.</p>
+</footer>
+
+<script>
+function sub(fid, sid, erid, eid) {
+  var email = document.getElementById(eid).value.trim();
+  var errEl = document.getElementById(erid);
+  errEl.style.display = 'none';
+  if (!email || email.indexOf('@') < 1 || email.indexOf('.') < 3) {
+    errEl.style.display = 'block';
+    return;
+  }
+  var btn = document.querySelector('#' + fid + ' button');
+  btn.textContent = '...';
+  btn.disabled = true;
+  fetch('https://formspree.io/f/mbdpekkv', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  }).finally(function() {
+    document.getElementById(fid).style.display = 'none';
+    document.getElementById(sid).style.display = 'block';
+  });
+}
+
+document.getElementById('e1').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') sub('f1','s1','er1','e1');
+});
+document.getElementById('e2').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') sub('f2','s2','er2','e2');
+});
+
+
+</script>
+</body>
+</html>
